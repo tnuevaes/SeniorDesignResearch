@@ -59,18 +59,22 @@ class App:
         pg.display.gl_set_attribute(pg.GL_CONTEXT_MINOR_VERSION, 3)
         pg.display.gl_set_attribute(pg.GL_CONTEXT_PROFILE_MASK,
                                     pg.GL_CONTEXT_PROFILE_CORE)
-        pg.display.set_mode((640,480), pg.OPENGL|pg.DOUBLEBUF)
-
-    '''    Left = False
-        Right = False
-        def moveOBJ():              #implement 3d motion based on render.py in 3D_Render
-            if Left:
-                glRotate(-1,0,0,1)
-            if Right:
-                glRotate(1,0,0,1)
+        pg.display.set_mode((800,800), pg.DOUBLEBUF|pg.OPENGL)
+        FPS = pg.time.Clock()
+        FPS.tick(60)
+        glTranslate(0,0,-5) #xyz
+        glRotate(-90,1,0,0)     
+          
+        Left = False
+        Right = False         #implement 3d motion based on render.py in 3D_Render
+        
+        if Left:
+            glRotate(-1,0,0,1)
+        if Right:
+            glRotate(1,0,0,1)
         while True:
             for event in pg.event.get():
-                if event.type == pg.QUIT:
+                if event.type == pg.QUIT:   
                     pg.quit()
                     sys.exit()
                 if event.type == KEYDOWN:
@@ -86,10 +90,6 @@ class App:
                         Left = False
                     if event.key == K_d:
                         Right = False
-            pg.display.flip()
-            moveOBJ()
-'''
-
     def _set_up_timer(self)  :
         """
             Set up the app's timer.
@@ -256,4 +256,7 @@ class Material:
 
 my_app = App()
 my_app.run()
+
+
+
 my_app.quit()

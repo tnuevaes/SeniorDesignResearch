@@ -4,8 +4,8 @@ from pygame.locals import*
 from OpenGL.GL import*
 from OpenGL.GLU import*
 
-vertextxt = "C:\\Users\\tedmi\\Desktop\\txtFiles\\vertices.txt" #path to our txt files
-facestxt = "C:\\Users\\tedmi\\Desktop\\txtFiles\\faces.txt" #example C:\\Users\\Johno\\Desktop\\txtFiles\\faces.txt
+vertextxt = "C:\\Users\\tedmi\\Desktop\\txtFilesTest\\vertices.txt" #path to our txt files
+facestxt = "C:\\Users\\tedmi\\Desktop\\txtFilesTest\\faces.txt" #example C:\\Users\\Johno\\Desktop\\txtFiles\\faces.txt
 
 paints = [     #colors for our faces
 (0,255,0), #green
@@ -49,7 +49,7 @@ def main():
     FPS = pygame.time.Clock() #fps func
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
     gluPerspective(45,1,.1,50)
-    glTranslate(0,0,-5) #xyz
+    glTranslate(0,0,-20) #xyz
     glRotate(-90,1,0,0)
 
     Left = False
