@@ -63,7 +63,7 @@ class App:
 
     '''    Left = False
         Right = False
-        def moveOBJ():              #implement 3d motion
+        def moveOBJ():              #implement 3d motion based on render.py in 3D_Render
             if Left:
                 glRotate(-1,0,0,1)
             if Right:
