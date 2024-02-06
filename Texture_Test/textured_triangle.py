@@ -113,10 +113,10 @@ class App:
         """
 
         self.triangle = Triangle()
-        self.wood_texture = Material("C:/repos/SeniorDesign/Research/Texture_Test/gfx/capture.png")
+        self.wood_texture = Material("C:/repos/SeniorDesign/SeniorDesignResearch/Texture_Test/gfx/capture.png")
         self.shader = create_shader(
-            vertex_filepath = "C:/repos/SeniorDesign/Research/Texture_Test/shaders/vertex.txt", 
-            fragment_filepath = "C:/repos/SeniorDesign/Research/Texture_Test/shaders/fragment.txt")
+            vertex_filepath = "C:/repos/SeniorDesign/SeniorDesignResearch/Texture_Test/shaders/vertex.txt", 
+            fragment_filepath = "C:/repos/SeniorDesign/SeniorDesignResearch/Texture_Test/shaders/fragment.txt")
     
     def _set_onetime_uniforms(self)  :
         """
