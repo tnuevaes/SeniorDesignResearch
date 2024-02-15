@@ -18,6 +18,7 @@ from vtkmodules.vtkFiltersTexture import vtkTextureMapToSphere
 from vtkmodules.vtkIOImage import vtkJPEGReader
 from vtkmodules.vtkIOImage import vtkPNGReader
 from vtkmodules.vtkIOImport import vtkVRMLImporter
+from vtkmodules.vtkIOImport import vtkOBJImporter
 from vtkmodules.vtkFiltersSources import (
     vtkCubeSource,
     vtkParametricFunctionSource,
@@ -48,9 +49,11 @@ def get_program_parameters():
 
 def main():
     colors = vtkNamedColors()
-
+    
     jpegfile = get_program_parameters()
     wrlfile = get_program_parameters()
+    objfile = get_program_parameters()
+    
     #jpegfile = "./res/8k_earth_daymap.jpg"
     # Create a render window
     ren = vtkRenderer()
@@ -65,26 +68,23 @@ def main():
     # Generate an sphere polydata
     sphere = vtkTexturedSphereSource()
     sphere.SetThetaResolution(100)
-    model = vtkVRMLImporter()
     sphere.SetPhiResolution(100)
     # Read the image data from a file
     reader = vtkJPEGReader()
     reader.SetFileName(jpegfile)
     
-    # WRL file importer
-    
-    
-    
-    importer = vtkVRMLImporter()
-    # importer.SetRenderWindow(renWin)
-    importer.SetFileName(wrlfile)
+    # OBJ file importer
+
+    # Read the 3d model data from OBJ file
+    importer = vtkOBJImporter()
+    importer.SetRenderWindow(renWin)
+    importer.SetFileName(objfile)
     importer.Read()
     iren = vtkRenderWindowInteractor()
     iren.SetRenderWindow(renWin)
     importer.GetRenderer().SetBackground(0.1,0.2,0.4)
     importer.GetRenderWindow().SetSize(300,300) 
     
-
     # Create texture object
     texture = vtkTexture()
     texture.SetInputConnection(importer.GetOutputPort())
