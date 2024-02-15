@@ -44,6 +44,7 @@ def get_program_parameters():
     args = parser.parse_args()
     return args.filename
 
+    #need to take in 2 arguments
 
 def main():
     colors = vtkNamedColors()
@@ -64,7 +65,7 @@ def main():
     # Generate an sphere polydata
     sphere = vtkTexturedSphereSource()
     sphere.SetThetaResolution(100)
-    model = 
+    model = vtkVRMLImporter()
     sphere.SetPhiResolution(100)
     # Read the image data from a file
     reader = vtkJPEGReader()
@@ -73,19 +74,20 @@ def main():
     # WRL file importer
     
     
-    # importer = vtkVRMLImporter()
+    
+    importer = vtkVRMLImporter()
     # importer.SetRenderWindow(renWin)
-    # importer.SetFileName(VTK_DATA_ROOT + "/Data/bot2.wrl")
-    # importer.Read()
-    # iren = vtkRenderWindowInteractor()
-    # iren.SetRenderWindow(renWin)
-    # importer.GetRenderer().SetBackground(0.1,0.2,0.4)
-    # importer.GetRenderWindow().SetSize(300,300) 
+    importer.SetFileName(wrlfile)
+    importer.Read()
+    iren = vtkRenderWindowInteractor()
+    iren.SetRenderWindow(renWin)
+    importer.GetRenderer().SetBackground(0.1,0.2,0.4)
+    importer.GetRenderWindow().SetSize(300,300) 
     
 
     # Create texture object
     texture = vtkTexture()
-    texture.SetInputConnection(reader.GetOutputPort())
+    texture.SetInputConnection(importer.GetOutputPort())
 
     # Map texture coordinates
     map_to_sphere = vtkTextureMapToSphere()
@@ -93,7 +95,8 @@ def main():
     map_to_sphere.PreventSeamOn()
     
     map_to_model = vtkVRMLImporter()
-    
+    map_to_model.SetInputConnection(importer.GetOutputPort())
+    map_to_model.PreventSeamOn()
 
     # Create mapper and set the mapped texture as input
     mapper = vtkPolyDataMapper()
