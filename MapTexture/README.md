@@ -2,6 +2,6 @@
 
 ### Within MapTexture Repo in command line:
 
-### $python MapToObject.py ./res/FILENAME
+#### $python MapToObject.py ./res/FILENAME
 
-### *change vtk_Reader depending on filetype
+#### *change vtk_Reader depending on filetype
