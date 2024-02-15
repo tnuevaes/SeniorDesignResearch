@@ -17,6 +17,7 @@ from vtkmodules.vtkFiltersSources import vtkSphereSource
 from vtkmodules.vtkFiltersTexture import vtkTextureMapToSphere
 from vtkmodules.vtkIOImage import vtkJPEGReader
 from vtkmodules.vtkIOImage import vtkPNGReader
+from vtkmodules.vtkIOImport import vtkVRMLImporter
 from vtkmodules.vtkFiltersSources import (
     vtkCubeSource,
     vtkParametricFunctionSource,
@@ -66,6 +67,19 @@ def main():
     # Read the image data from a file
     reader = vtkJPEGReader()
     reader.SetFileName(jpegfile)
+    
+    # WRL file importer
+    
+    
+    # importer = vtkVRMLImporter()
+    # importer.SetRenderWindow(renWin)
+    # importer.SetFileName(VTK_DATA_ROOT + "/Data/bot2.wrl")
+    # importer.Read()
+    # iren = vtkRenderWindowInteractor()
+    # iren.SetRenderWindow(renWin)
+    # importer.GetRenderer().SetBackground(0.1,0.2,0.4)
+    # importer.GetRenderWindow().SetSize(300,300) 
+    
 
     # Create texture object
     texture = vtkTexture()
