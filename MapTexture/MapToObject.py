@@ -64,7 +64,7 @@ def main():
     sphere.SetThetaResolution(100)
     sphere.SetPhiResolution(100)
     # Read the image data from a file
-    reader = vtkPNGReader()
+    reader = vtkJPEGReader()
     reader.SetFileName(jpegfile)
 
     # Create texture object
