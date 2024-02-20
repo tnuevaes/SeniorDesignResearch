@@ -41,7 +41,7 @@ def get_program_parameters():
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('filename', help='masonry-wide.jpg.')
+    parser.add_argument('filename1', help='masonry-wide.jpg.')
     parser.add_argument('filename2', help='tshirt.obj')
     args = parser.parse_args()
     arg1 = args.filename1
