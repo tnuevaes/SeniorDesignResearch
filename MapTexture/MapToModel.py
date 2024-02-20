@@ -17,8 +17,8 @@ from vtkmodules.vtkFiltersSources import vtkSphereSource
 from vtkmodules.vtkFiltersTexture import vtkTextureMapToSphere
 from vtkmodules.vtkIOImage import vtkJPEGReader
 from vtkmodules.vtkIOImage import vtkPNGReader
-from vtkmodules.vtkIOImport import vtkVRMLImporter
-from vtkmodules.vtkIOImport import vtkOBJImporter
+from vtkmodules.vtkIOGeometry import vtkOBJReader
+
 from vtkmodules.vtkFiltersSources import (
     vtkCubeSource,
     vtkParametricFunctionSource,
@@ -42,65 +42,52 @@ def get_program_parameters():
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('filename', help='masonry-wide.jpg.')
+    parser.add_argument('filename2', help='tshirt.obj')
     args = parser.parse_args()
-    return args.filename
-
-    #need to take in 2 arguments
+    arg1 = args.filename1
+    arg2 = args.filename2
+    return arg1, arg2
+    # takes in jpg file and obj file IN THAT ORDER
+    
 
 def main():
     colors = vtkNamedColors()
     
-    jpegfile = get_program_parameters()
-    wrlfile = get_program_parameters()
-    objfile = get_program_parameters()
+    jpegfile, objfile = get_program_parameters()
     
     #jpegfile = "./res/8k_earth_daymap.jpg"
+    #objfile  = "./obj/tshirt.obj"
+    
     # Create a render window
     ren = vtkRenderer()
     renWin = vtkRenderWindow()
     renWin.AddRenderer(ren)
     renWin.SetSize(480, 480)
-    renWin.SetWindowName('SphereTexture')
+    renWin.SetWindowName('Model Render')
 
     iren = vtkRenderWindowInteractor()
     iren.SetRenderWindow(renWin)
 
-    # Generate an sphere polydata
-    sphere = vtkTexturedSphereSource()
-    sphere.SetThetaResolution(100)
-    sphere.SetPhiResolution(100)
     # Read the image data from a file
     reader = vtkJPEGReader()
     reader.SetFileName(jpegfile)
     
-    # OBJ file importer
+    # read the obj data from a file
+    objreader = vtkOBJReader()
+    objreader.SetFileName(objfile)
 
-    # Read the 3d model data from OBJ file
-    importer = vtkOBJImporter()
-    importer.SetRenderWindow(renWin)
-    importer.SetFileName(objfile)
-    importer.Read()
-    iren = vtkRenderWindowInteractor()
-    iren.SetRenderWindow(renWin)
-    importer.GetRenderer().SetBackground(0.1,0.2,0.4)
-    importer.GetRenderWindow().SetSize(300,300) 
-    
     # Create texture object
     texture = vtkTexture()
-    texture.SetInputConnection(importer.GetOutputPort())
+    texture.SetInputConnection(reader.GetOutputPort())
 
     # Map texture coordinates
-    map_to_sphere = vtkTextureMapToSphere()
-    map_to_sphere.SetInputConnection(sphere.GetOutputPort())
-    map_to_sphere.PreventSeamOn()
     
-    map_to_model = vtkVRMLImporter()
-    map_to_model.SetInputConnection(importer.GetOutputPort())
+    map_to_model = vtkTextureMapToSphere()
+    map_to_model.SetInputConnection(objreader.GetOutputPort())
     map_to_model.PreventSeamOn()
 
     # Create mapper and set the mapped texture as input
     mapper = vtkPolyDataMapper()
-    mapper.SetInputConnection(map_to_sphere.GetOutputPort())
     mapper.SetInputConnection(map_to_model.GetOutputPort())
 
     # Create actor and set the mapper and the texture
