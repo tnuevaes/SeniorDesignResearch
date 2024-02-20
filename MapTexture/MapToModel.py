@@ -7,8 +7,9 @@ import vtkmodules.vtkInteractionStyle
 # noinspection PyUnresolvedReferences
 import vtkmodules.vtkRenderingOpenGL2
 from vtkmodules.vtkCommonColor import vtkNamedColors
-from vtkmodules.vtkFiltersSources import vtkSphereSource
 from vtkmodules.vtkFiltersTexture import vtkTextureMapToSphere
+from vtkmodules.vtkFiltersTexture import vtkTextureMapToCylinder
+from vtkmodules.vtkFiltersTexture import vtkTextureMapToPlane
 from vtkmodules.vtkIOImage import vtkJPEGReader
 from vtkmodules.vtkIOImage import vtkPNGReader
 from vtkmodules.vtkIOGeometry import vtkOBJReader
@@ -77,9 +78,11 @@ def main():
 
     # Map texture coordinates
     
-    map_to_model = vtkTextureMapToSphere()
+    map_to_model = vtkTextureMapToPlane()   #Plane texture map is good
+    # map_to_model = vtkTextureMapToCylinder()      Cylinder texture map is also good
+    # map_to_model = vtkTextureMapToSphere()
     map_to_model.SetInputConnection(objreader.GetOutputPort())
-    map_to_model.PreventSeamOn()
+    # map_to_model.PreventSeamOn()
 
     # Create mapper and set the mapped texture as input
     mapper = vtkPolyDataMapper()
