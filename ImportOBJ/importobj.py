@@ -21,7 +21,6 @@ reader.SetFileName(objpath)
 
 reader.Update()
 
-
 mapper = vtk.vtkPolyDataMapper()
 
 if vtk.VTK_MAJOR_VERSION <= 5:

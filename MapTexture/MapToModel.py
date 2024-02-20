@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 
-##
-# This example shows how to apply an vtkImageData texture to an sphere
-# vtkPolyData object.
-# Note: Input jpg file can be located in the VTKData repository.
-#
-# @author JBallesteros
-##
+# Usage: python MapToModel.py ./res/IMAGE.jpg ./obj/MODEL.obj
 
 # noinspection PyUnresolvedReferences
 import vtkmodules.vtkInteractionStyle
@@ -48,6 +42,7 @@ def get_program_parameters():
     arg2 = args.filename2
     return arg1, arg2
     # takes in jpg file and obj file IN THAT ORDER
+
     
 
 def main():
