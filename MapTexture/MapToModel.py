@@ -34,21 +34,19 @@ def get_program_parameters():
     description = 'Texture an object with an image.'
     epilogue = '''
    '''
-    parser = argparse.ArgumentParser(description=description, epilog=epilogue,
-                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('filename1', help='masonry-wide.jpg.')
     parser.add_argument('filename2', help='tshirt.obj')
     args = parser.parse_args()
     arg1 = args.filename1
     arg2 = args.filename2
-    return arg1, arg2
+    return args.filename1, args.filename2
     # takes in jpg file and obj file IN THAT ORDER
 
     
 
 def main():
     colors = vtkNamedColors()
-    
     jpegfile, objfile = get_program_parameters()
     
     #jpegfile = "./res/8k_earth_daymap.jpg"
@@ -65,7 +63,7 @@ def main():
     iren.SetRenderWindow(renWin)
 
     # Read the image data from a file
-    reader = vtkJPEGReader()
+    reader = vtkPNGReader()
     reader.SetFileName(jpegfile)
     
     # read the obj data from a file
@@ -79,6 +77,8 @@ def main():
     # Map texture coordinates
     
     map_to_model = vtkTextureMapToPlane()   #Plane texture map is good
+    # UV Bias for shifting image in various directions
+    
     # map_to_model = vtkTextureMapToCylinder()      Cylinder texture map is also good
     # map_to_model = vtkTextureMapToSphere()
     map_to_model.SetInputConnection(objreader.GetOutputPort())
