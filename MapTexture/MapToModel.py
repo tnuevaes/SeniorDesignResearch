@@ -13,6 +13,7 @@ from vtkmodules.vtkFiltersTexture import vtkTextureMapToPlane
 from vtkmodules.vtkIOImage import vtkJPEGReader
 from vtkmodules.vtkIOImage import vtkPNGReader
 from vtkmodules.vtkIOGeometry import vtkOBJReader
+from vtkmodules.vtkInteractionStyle import vtkInteractorStyleTrackballCamera
 
 from vtkmodules.vtkFiltersSources import (
     vtkCubeSource,
@@ -42,8 +43,18 @@ def get_program_parameters():
     arg2 = args.filename2
     return args.filename1, args.filename2
     # takes in jpg file and obj file IN THAT ORDER
-
     
+# 
+    key = vtkRenderWindowInteractor.GetKeySym()
+    if key == "Left":
+        actor.RotateY(5.0)
+    elif key == "Right":
+        actor.RotateY(-5.0)
+    elif key == "Up":
+        actor.RotateX(5.0)
+    elif key == "Down":
+        actor.RotateX(-5.0)
+        
 
 def main():
     colors = vtkNamedColors()
@@ -60,10 +71,13 @@ def main():
     renWin.SetWindowName('Model Render')
 
     iren = vtkRenderWindowInteractor()
+    
+    
+    
     iren.SetRenderWindow(renWin)
 
     # Read the image data from a file
-    reader = vtkPNGReader()
+    reader = vtkJPEGReader()
     reader.SetFileName(jpegfile)
     
     # read the obj data from a file
@@ -95,8 +109,18 @@ def main():
 
     ren.AddActor(actor)
     ren.SetBackground(colors.GetColor3d('Black'))
+    # Interactor 
+    # interactorStyle = vtkInteractorStyleTrackballCamera()
+    # iren.SetInteractorStyle(interactorStyle)
 
     iren.Initialize()
+
+
+
+
+
+ #   vtkRenderWindowInteractor.AddObserver("KeyPressEvent", rotate_callback(actor))
+    
     renWin.Render()
     iren.Start()
 
