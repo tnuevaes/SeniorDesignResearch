@@ -104,7 +104,7 @@ def main():
 
     # Create actor and set the mapper and the texture
     actor = vtkActor()
-    # actor.GetProperty().SetColor(colors.GetColor3d('Bisque'))
+    actor.GetProperty().SetColor(colors.GetColor3d('red'))
     actor.SetMapper(mapper)
     actor.SetTexture(texture)
 
