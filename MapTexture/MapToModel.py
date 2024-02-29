@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Usage: python MapToModel.py ./res/IMAGE.jpg ./obj/MODEL.obj
-
+from PIL import Image
 # noinspection PyUnresolvedReferences
 import vtkmodules.vtkInteractionStyle
 # noinspection PyUnresolvedReferences
@@ -104,6 +104,7 @@ def main():
 
     # Create actor and set the mapper and the texture
     actor = vtkActor()
+    # actor.GetProperty().SetColor(colors.GetColor3d('Bisque'))
     actor.SetMapper(mapper)
     actor.SetTexture(texture)
 
@@ -125,7 +126,10 @@ def main():
     
     renWin.Render()
     iren.Start()
-
+    
+    
 
 if __name__ == '__main__':
+    
     main()
+
