@@ -14,6 +14,7 @@ from vtkmodules.vtkIOImage import vtkJPEGReader
 from vtkmodules.vtkIOImage import vtkPNGReader
 from vtkmodules.vtkIOGeometry import vtkOBJReader
 from vtkmodules.vtkInteractionStyle import vtkInteractorStyleTrackballCamera
+from vtkmodules.vtkInteractionWidgets import vtkCameraOrientationWidget
 
 from vtkmodules.vtkFiltersSources import (
     vtkCubeSource,
@@ -44,16 +45,15 @@ def get_program_parameters():
     return args.filename1, args.filename2
     # takes in jpg file and obj file IN THAT ORDER
     
-# 
-    key = vtkRenderWindowInteractor.GetKeySym()
-    if key == "Left":
-        actor.RotateY(5.0)
-    elif key == "Right":
-        actor.RotateY(-5.0)
-    elif key == "Up":
-        actor.RotateX(5.0)
-    elif key == "Down":
-        actor.RotateX(-5.0)
+# def rotate_callback(key,actor): 
+#    if key == "Left":
+#        actor.RotateY(5.0)
+#    elif key == "Right":
+#        actor.RotateY(-5.0)
+#    elif key == "Up":
+#        actor.RotateX(5.0)
+#    elif key == "Down":
+#         actor.RotateX(-5.0)
         
 
 def main():
@@ -73,7 +73,7 @@ def main():
     iren = vtkRenderWindowInteractor()
     
     
-    
+    # Set render window
     iren.SetRenderWindow(renWin)
 
     # Read the image data from a file
@@ -114,12 +114,14 @@ def main():
     # iren.SetInteractorStyle(interactorStyle)
 
     iren.Initialize()
-
-
-
-
-
- #   vtkRenderWindowInteractor.AddObserver("KeyPressEvent", rotate_callback(actor))
+    
+    # key = vtkRenderWindowInteractor.GetKeySym()
+    # vtkRenderWindowInteractor.AddObserver("KeyPressEvent", rotate_callback(key, actor))
+    
+    cam_orient_manipulator = vtkCameraOrientationWidget()
+    cam_orient_manipulator.SetParentRenderer(ren)
+    # Enable the widget.
+    cam_orient_manipulator.On()
     
     renWin.Render()
     iren.Start()
