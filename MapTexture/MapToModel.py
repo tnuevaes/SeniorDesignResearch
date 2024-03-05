@@ -60,6 +60,8 @@ def main():
     colors = vtkNamedColors()
     jpegfile, objfile = get_program_parameters()
     
+    # back_jpeg = get_program_parameters() ##implement 2nd texture reading 
+    
     #jpegfile = "./res/8k_earth_daymap.jpg"
     #objfile  = "./obj/tshirt.obj"
     
@@ -80,6 +82,9 @@ def main():
     reader = vtkJPEGReader()
     reader.SetFileName(jpegfile)
     
+    reader2 = vtkJPEGReader()
+    reader2.SetFileName()
+    
     # read the obj data from a file
     objreader = vtkOBJReader()
     objreader.SetFileName(objfile)
@@ -87,6 +92,9 @@ def main():
     # Create texture object
     texture = vtkTexture()
     texture.SetInputConnection(reader.GetOutputPort())
+    
+    texture2 = vtkTexture()
+    texture2.SetInputConnection(reader.GetOutputPort())  # Second texture 
 
     # Map texture coordinates
     
@@ -107,6 +115,7 @@ def main():
     # actor.GetProperty().SetColor(colors.GetColor3d('red'))
     actor.SetMapper(mapper)
     actor.SetTexture(texture)
+    actor.SetBackfaceProperty()
 
     ren.AddActor(actor)
     ren.SetBackground(colors.GetColor3d('White'))
