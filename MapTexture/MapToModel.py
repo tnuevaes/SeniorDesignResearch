@@ -27,7 +27,8 @@ from vtkmodules.vtkRenderingCore import (
     vtkRenderWindow,
     vtkRenderWindowInteractor,
     vtkRenderer,
-    vtkTexture
+    vtkTexture,
+    vtkProperty,
 )
 
 
@@ -83,7 +84,7 @@ def main():
     reader.SetFileName(jpegfile)
     
     reader2 = vtkJPEGReader()
-    reader2.SetFileName()
+    # reader2.SetFileName()
     
     # read the obj data from a file
     objreader = vtkOBJReader()
@@ -112,10 +113,12 @@ def main():
 
     # Create actor and set the mapper and the texture
     actor = vtkActor()
+    bp = vtkProperty()
+    bp.SetColor(0,1,0)
     # actor.GetProperty().SetColor(colors.GetColor3d('red'))
     actor.SetMapper(mapper)
     actor.SetTexture(texture)
-    actor.SetBackfaceProperty()
+    actor.SetBackfaceProperty(bp)
 
     ren.AddActor(actor)
     ren.SetBackground(colors.GetColor3d('White'))
