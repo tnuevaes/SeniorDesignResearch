@@ -104,12 +104,12 @@ def main():
 
     # Create actor and set the mapper and the texture
     actor = vtkActor()
-    actor.GetProperty().SetColor(colors.GetColor3d('red'))
+    # actor.GetProperty().SetColor(colors.GetColor3d('red'))
     actor.SetMapper(mapper)
     actor.SetTexture(texture)
 
     ren.AddActor(actor)
-    ren.SetBackground(colors.GetColor3d('Black'))
+    ren.SetBackground(colors.GetColor3d('White'))
     # Interactor 
     # interactorStyle = vtkInteractorStyleTrackballCamera()
     # iren.SetInteractorStyle(interactorStyle)
